@@ -44,9 +44,6 @@ app.get("/api/timestamp/:date_string", function(req, res) {
       });
     }
     
-   
-    
-  }
 });
 
 
