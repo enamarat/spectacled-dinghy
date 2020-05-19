@@ -35,13 +35,14 @@ app.get("/api/timestamp/:date_string", function(req, res) {
         unix: new Date(req.params.date_string).valueOf(),
         utc: new Date(req.params.date_string.valueOf()).toUTCString(),
       });
+    } 
+    
     // if user's input is in format: "21213124..." (a bunch of digits), the program will assume it is a UNIX time format
-    } else {
       res.json({ 
        unix: req.params.date_string, 
        utc: new Date(parseInt(req.params.date_string)).toUTCString() 
      });
-    }
+    
   }
 });
 
