@@ -28,20 +28,20 @@ app.get("/api/timestamp/:date_string", function(req, res) {
     });
   // if values in user's input are in valid format: "yyyy-mm-dd"
   } else {
-    const regex = /\d+/;
-    // if user's input is in format: "21213124..." (a bunch of digits), the program will assume it is a UNIX time format
+    const regex = /\d{4}-\d{2}-d{2}/;
+    // if user's input is in format: "yyyy-mm-dd"
     if (regex.test(req.params.date_string)) {
+      res.json({
+        unix: new Date(req.params.date_string).valueOf(),
+        utc: new Date(req.params.date_string.valueOf()).toUTCString(),
+      });
+    // if user's input is in format: "21213124..." (a bunch of digits), the program will assume it is a UNIX time format
+    } else {
       res.json({ 
        unix: req.params.date_string, 
        utc: new Date(parseInt(req.params.date_string)).toUTCString() 
      });
-    } 
-    
-    // if user's input is in format: "yyyy-mm-dd"
-     res.json({
-      unix: new Date(req.params.date_string).valueOf(),
-      utc: new Date(req.params.date_string.valueOf()).toUTCString(),
-      });
+    }
   }
 });
 
