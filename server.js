@@ -26,12 +26,22 @@ app.get("/api/timestamp/:date_string", function(req, res) {
     res.json({
       error: "Invalid Date"
     });
-    // if values in user's input are in valid format: "yyyy-mm-dd"
+  // if values in user's input are in valid format: "yyyy-mm-dd"
   } else {
-    res.json({
+    const regex = /\d+/;
+    // if user's input is in format: "21213124..." (a bunch of digits), the program will assume it is a UNIX time format
+    if (regex.test(req.params.date_string)) {
+      res.json({ 
+       unix: req.params.date_string, 
+       utc: new Date(parseInt(req.params.date_string)).toUTCString() 
+     });
+    // if user's input is in format: "yyyy-mm-dd"
+    } else {
+     res.json({
       unix: new Date(req.params.date_string).valueOf(),
       utc: new Date(req.params.date_string.valueOf()).toUTCString(),
-    });
+      });
+    }
   }
 });
 
