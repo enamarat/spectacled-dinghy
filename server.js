@@ -35,13 +35,13 @@ app.get("/api/timestamp/:date_string", function(req, res) {
        unix: req.params.date_string, 
        utc: new Date(parseInt(req.params.date_string)).toUTCString() 
      });
+    } 
+    
     // if user's input is in format: "yyyy-mm-dd"
-    } else {
      res.json({
       unix: new Date(req.params.date_string).valueOf(),
       utc: new Date(req.params.date_string.valueOf()).toUTCString(),
       });
-    }
   }
 });
 
